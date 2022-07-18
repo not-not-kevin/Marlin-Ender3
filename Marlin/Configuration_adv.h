@@ -982,11 +982,17 @@
 //
 // Add the G35 command to read bed corners to help adjust screws. Requires a bed probe.
 //
-//#define ASSISTED_TRAMMING
+#define ASSISTED_TRAMMING
 #if ENABLED(ASSISTED_TRAMMING)
 
+  #define MY_BED_SCREW_XY_POS max(35, max(((xyz_pos_t)NOZZLE_TO_PROBE_OFFSET).x, ((xyz_pos_t)NOZZLE_TO_PROBE_OFFSET).y))
+  #define MY_BED_SCREW_LEFT_POSITION MY_BED_SCREW_XY_POS
+  #define MY_BED_SCREW_RIGHT_POSITION (X_BED_SIZE - MY_BED_SCREW_LEFT_POSITION)
+  #define MY_BED_SCREW_FRONT_POSITION MY_BED_SCREW_XY_POS
+  #define MY_BED_SCREW_BACK_POSITION (Y_BED_SIZE - MY_BED_SCREW_FRONT_POSITION)
+
   // Define positions for probe points.
-  #define TRAMMING_POINT_XY { {  20, 20 }, { 180,  20 }, { 180, 180 }, { 20, 180 } }
+  #define TRAMMING_POINT_XY { { MY_BED_SCREW_LEFT_POSITION, MY_BED_SCREW_FRONT_POSITION }, { MY_BED_SCREW_RIGHT_POSITION,  MY_BED_SCREW_FRONT_POSITION }, { MY_BED_SCREW_RIGHT_POSITION, MY_BED_SCREW_BACK_POSITION }, { MY_BED_SCREW_LEFT_POSITION, MY_BED_SCREW_BACK_POSITION } }
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -997,7 +1003,7 @@
   #define RESTORE_LEVELING_AFTER_G35    // Enable to restore leveling setup after operation
   //#define REPORT_TRAMMING_MM          // Report Z deviation (mm) for each point relative to the first
 
-  //#define ASSISTED_TRAMMING_WIZARD    // Add a Tramming Wizard to the LCD menu
+  #define ASSISTED_TRAMMING_WIZARD    // Add a Tramming Wizard to the LCD menu
 
   //#define ASSISTED_TRAMMING_WAIT_POSITION { X_CENTER, Y_CENTER, 30 } // Move the nozzle out of the way for adjustment
 
@@ -1007,7 +1013,7 @@
    *   M4: 40 = Clockwise, 41 = Counter-Clockwise
    *   M5: 50 = Clockwise, 51 = Counter-Clockwise
    */
-  #define TRAMMING_SCREW_THREAD 30
+  #define TRAMMING_SCREW_THREAD 40
 
 #endif
 
