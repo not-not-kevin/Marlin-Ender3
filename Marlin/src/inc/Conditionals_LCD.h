@@ -173,7 +173,7 @@
     #ifndef NEOPIXEL_BRIGHTNESS
       #define NEOPIXEL_BRIGHTNESS 127
     #endif
-    //#define NEOPIXEL_STARTUP_TEST
+    #define NEOPIXEL_STARTUP_TEST
   #endif
 
 #elif ENABLED(ULTI_CONTROLLER)
